@@ -4,7 +4,8 @@ import { useState, useMemo } from 'react'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
-import _ from 'lodash'
+import _, { set } from 'lodash'
+import { useEffect } from 'react'
 
 const Month = () => {
     //按月做数据的分组
@@ -29,6 +30,13 @@ const Month = () => {
             total: pay + income
         }
     }, [currentMonthList])
+
+    //初始化的时候把当前月的统计数据显示出来
+    useEffect(() => {
+        const nowDate = dayjs().format('YYYY-MM')
+        setMonthList(monthGroup[nowDate] || [])
+    }, [monthGroup])
+
     //确认回调
     const onConfirm = (date) => {
         setDateVisible(false)
