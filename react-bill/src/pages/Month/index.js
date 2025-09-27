@@ -1,10 +1,18 @@
 import { NavBar, DatePicker } from 'antd-mobile'
 import './index.scss'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
+import { useSelector } from 'react-redux'
 
 const Month = () => {
+    //按月做数据的分组
+    const billList = useSelector(state => state.bill.billList)
+    const monthGroup = useMemo(() => {
+        //return出去计算之后的值
+        return billList
+    }, [billList])
+    console.log(monthGroup)
     //控制弹框的打开和关闭
     const [dateVisible, setDateVisible] = useState(false)
     const onConfirm = (date) => {
